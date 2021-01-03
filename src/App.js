@@ -1,13 +1,26 @@
 import "./App.css";
-import { useState } from "react";
-import Todo from './components/Todo.js'
+import { useState, useEffect } from "react";
+import Todo from "./components/Todo.js";
 import { Button, FormControl, InputLabel, Input } from "@material-ui/core";
+import db from "./firebase";
 
 const App = () => {
-  const [todos, setTodos] = useState(["Levar o lixo", "Estudar react"]);
+  const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
 
+  // carregando a aplicação ouvindo a base de dados
+
+  useEffect(() => {
+    db.collection("todos").onSnapshot((snapshot) => {
+      setTodos(snapshot.docs.map((doc) => doc.data().task));
+    });
+  }, []);
+
   const addTodo = (e) => {
+    db.collection("todos").add({
+      task: input,
+    });
+
     setTodos([...todos, input]);
     setInput("");
     e.preventDefault(); // para o refresh causado pelo Submit
@@ -32,8 +45,10 @@ const App = () => {
         </Button>
       </form>
       <ul>
-        {todos.map((todo) => ( // mapeando o state todos para imprimir na li
-          <Todo text={todo}/>
+        {todos.map(( // mapeando o state todos para imprimir no componente Todo
+          todo 
+        ) => (
+          <Todo text={todo} />
         ))}
       </ul>
     </div>
