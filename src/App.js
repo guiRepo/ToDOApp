@@ -4,7 +4,7 @@ import Todo from './components/Todo.js'
 import { Button, FormControl, InputLabel, Input } from "@material-ui/core";
 
 const App = () => {
-  const [todos, setTodos] = useState(["guilherme", "felipe"]);
+  const [todos, setTodos] = useState(["Levar o lixo", "Estudar react"]);
   const [input, setInput] = useState("");
 
   const addTodo = (e) => {
