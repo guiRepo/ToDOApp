@@ -6,21 +6,22 @@ const App = () => {
   const [input, setInput] = useState('')
 
   const addTodo = (e) => {
-    console.log('funcionou')
     setTodos([...todos, input])
+    setInput('')
+    e.preventDefault() // para o refresh causado pelo Submit
   }
 
   return (
-    <div className="App">
-      
-
-      <h1>Hello App</h1>
-        <input value={input} onChange={e => setInput(e.target.value)}/>
-          <button onClick={addTodo}>Add todo</button>
-            <ul>
-            {todos.map(todo => (
-                <li>{todo}</li>))}
-            </ul>
+    <div className="App">      
+      <form>
+        <h1>Hello App</h1>
+          <input value={input} onChange={e => setInput(e.target.value)}/>
+            <button type="submit" onClick={addTodo}>Add todo</button>
+              <ul>
+              {todos.map(todo => ( // mapeando o state todos para imprimir na li
+                  <li>{todo}</li>))}
+              </ul>
+      </form>
     </div>
   );
 }
