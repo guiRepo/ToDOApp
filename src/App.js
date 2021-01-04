@@ -16,7 +16,7 @@ const App = () => {
       .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
         // criando a colletion "todo" e listando os todo's criados (iniciando com nada)
-        setTodos(snapshot.docs.map((doc) => doc.data().task));
+        setTodos(snapshot.docs.map(doc => ({id: doc.id, todo: doc.data().task})));
       });
   }, []);
 
@@ -53,7 +53,7 @@ const App = () => {
           // mapeando o state todos para imprimir no componente Todo
           todo
         ) => (
-          <Todo text={todo} />
+          <Todo todo={todo} />
         ))}
       </ul>
     </div>
